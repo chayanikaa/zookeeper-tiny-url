@@ -52,3 +52,9 @@ If you want to remove the Docker image for your application, you can do so with:
 ```bash
 docker rmi tiny-url-app
 ```
+
+## Next steps
+
+- Integrate with a NoSQL document DB
+- Better config management
+- Deploy using AWS
