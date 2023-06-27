@@ -15,7 +15,7 @@ docker pull zookeeper
 Start a ZooKeeper container from the pulled image, exposing port 2181.
 
 ```bash
-docker run --name my-zookeeper --network=mynetwork -p 2181:2181 -d zookeeper
+docker run --name tiny-url-zookeeper --network=tinyurlnetwork -p 2181:2181 -d zookeeper
 ```
 
 3. Build the Application Docker Image
@@ -29,11 +29,11 @@ docker build -t tiny-url-app .
 Start two containers from your application's Docker image. These will connect to the ZooKeeper server using the container name as the hostname.
 
 ```bash
-docker run -d --name=app-instance-1 --network=mynetwork -p 3001:3000 tiny-url-app
-docker run -d --name=app-instance-2 --network=mynetwork -p 3002:3000 tiny-url-app
+docker run -d --name=app-instance-1 --network=tinyurlnetwork -p 3001:3000 tiny-url-app
+docker run -d --name=app-instance-2 --network=tinyurlnetwork -p 3002:3000 tiny-url-app
 ```
 
-Remember to replace mynetwork with your Docker network name, my-zookeeper with your ZooKeeper container name, and tiny-url-app with your application's Docker image name. The -p flag maps the container's port to a port on your host machine, and the -d flag runs the container in detached mode.
+Remember to replace tinyurlnetwork with your Docker network name, tiny-url-zookeeper with your ZooKeeper container name, and tiny-url-app with your application's Docker image name. The -p flag maps the container's port to a port on your host machine, and the -d flag runs the container in detached mode.
 
 5. Accessing the Application
 With this setup, you should be able to access the two instances of your application at http://localhost:3001 and http://localhost:3002.
@@ -42,8 +42,8 @@ With this setup, you should be able to access the two instances of your applicat
 To stop and remove the containers when you're done, you can use:
 
 ```bash
-docker stop app-instance-1 app-instance-2 my-zookeeper
-docker rm app-instance-1 app-instance-2 my-zookeeper
+docker stop app-instance-1 app-instance-2 tiny-url-zookeeper
+docker rm app-instance-1 app-instance-2 tiny-url-zookeeper
 ```
 
 7. Removing the Docker Image
